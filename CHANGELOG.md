@@ -1,3 +1,6 @@
+# freeRASP 6.4.0-dev
+- ✔ Added `onInitialChecksDone` callback
+
 # freeRASP 6.3.0
 Improved logging of the Android SDK and minor bug fixes
 
