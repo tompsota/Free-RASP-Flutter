@@ -3,6 +3,7 @@ package com.aheaditec.freerasp.handlers
 import android.content.Context
 import com.aheaditec.freerasp.Threat
 import com.aheaditec.talsec_security.security.api.ThreatListener
+import com.aheaditec.talsec_security.security.api.ThreatListener.CompletionNotifier
 import com.aheaditec.talsec_security.security.api.ThreatListener.DeviceState
 import com.aheaditec.talsec_security.security.api.ThreatListener.ThreatDetected
 
@@ -12,10 +13,10 @@ import com.aheaditec.talsec_security.security.api.ThreatListener.ThreatDetected
  * The object provides methods to register a listener for threat notifications and notifies the
  * listener when a security threat is detected.
  */
-internal object PluginThreatHandler : ThreatDetected, DeviceState {
+internal object PluginThreatHandler : ThreatDetected, DeviceState, CompletionNotifier {
     internal val detectedThreats = mutableSetOf<Threat>()
     internal var listener: TalsecFlutter? = null
-    private val internalListener = ThreatListener(this, this)
+    private val internalListener = ThreatListener(this, this, this)
 
     internal fun registerListener(context: Context) {
         internalListener.registerListener(context)
@@ -63,6 +64,10 @@ internal object PluginThreatHandler : ThreatDetected, DeviceState {
 
     override fun onHardwareBackedKeystoreNotAvailableDetected() {
         notify(Threat.SECURE_HARDWARE_NOT_AVAILABLE)
+    }
+
+    override fun onInitialChecksDone() {
+        notify(Threat.CHECKS_COMPLETED)
     }
 
     private fun notify(threat: Threat) {

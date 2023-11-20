@@ -11,4 +11,5 @@ internal enum class Threat(val value: String) {
     UNOFFICIAL_STORE("unofficialStore"),
     PRIVILEGED_ACCESS("privilegedAccess"),
     SECURE_HARDWARE_NOT_AVAILABLE("secureHardwareNotAvailable"),
+    CHECKS_COMPLETED("checksCompleted")
 }
