@@ -1,10 +1,14 @@
 import TalsecRuntime
 
 /// Extension with submits events to plugin
-extension SecurityThreatCenter: SecurityThreatHandler {
+extension SecurityThreatCenter: SecurityThreatHandler, SecurityThreatNotifier {
     
     public func threatDetected(_ securityThreat: TalsecRuntime.SecurityThreat) {
         SwiftFreeraspPlugin.instance.submitEvent(securityThreat)
+    }
+    
+    public func initialChecksDone() {
+        SwiftFreeraspPlugin.instance.submitEvent("checksCompleted")
     }
 }
 

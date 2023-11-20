@@ -96,4 +96,8 @@ public class SwiftFreeraspPlugin: NSObject, FlutterPlugin, FlutterStreamHandler 
         }
         eventProcessor.processEvent(submittedEvent)
     }
+    
+    public func submitEvent(_ submittedEvent: String) {
+        eventProcessor.processEvent(submittedEvent)
+    }
 }

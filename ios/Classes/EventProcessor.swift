@@ -4,6 +4,7 @@ import TalsecRuntime
 class EventProcessor {
     /// A set of security threats that have been detected but not yet processed
     private var detectedThreats = Set<SecurityThreat>()
+    private var isFinished = false
     
     /// A sink for sending processed security threat events
     private var sink: FlutterEventSink?
@@ -17,6 +18,9 @@ class EventProcessor {
         self.sink = sink
         detectedThreats.forEach(processEvent)
         detectedThreats.removeAll()
+        if (isFinished) {
+            processEvent("checksCompleted")
+        }
     }
     
     /// Detaches the current sink.
@@ -39,5 +43,13 @@ class EventProcessor {
         }
         
         eventSink(event.callbackIdentifier)
+    }
+    
+    func processEvent(_ event: String){
+        guard let eventSink = sink else {
+            isFinished = true
+            return
+        }
+        eventSink(event)
     }
 }
