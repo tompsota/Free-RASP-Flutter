@@ -20,6 +20,7 @@ class ThreatNotifier extends StateNotifier<Map<Threat, bool>> {
           _updateThreat(Threat.secureHardwareNotAvailable),
       onSimulator: () => _updateThreat(Threat.simulator),
       onUnofficialStore: () => _updateThreat(Threat.unofficialStore),
+      onChecksCompleted: () => print("checks completed"),
     );
 
     Talsec.instance.attachListener(callback);
