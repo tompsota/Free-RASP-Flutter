@@ -162,6 +162,8 @@ class Talsec {
         case Threat.secureHardwareNotAvailable:
           callback.onSecureHardwareNotAvailable?.call();
           break;
+        case Threat.checksCompleted:
+          callback.onChecksCompleted?.call();
       }
     });
   }

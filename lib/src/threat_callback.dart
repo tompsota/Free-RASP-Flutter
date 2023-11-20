@@ -31,6 +31,7 @@ class ThreatCallback {
     this.onUnofficialStore,
     this.onPrivilegedAccess,
     this.onSecureHardwareNotAvailable,
+    this.onChecksCompleted,
   });
 
   /// This method is called when a threat related dynamic hooking (e.g. Frida)
@@ -71,4 +72,6 @@ class ThreatCallback {
 
   /// This method is called when secure hardware is not available on device.
   final VoidCallback? onSecureHardwareNotAvailable;
+
+  final VoidCallback? onChecksCompleted;
 }

@@ -45,7 +45,9 @@ enum Threat {
 
   /// The application is running on a device which doesn't support secure
   /// hardware based cryptography.
-  secureHardwareNotAvailable
+  secureHardwareNotAvailable,
+
+  checksCompleted
 }
 
 /// An extension on the [Threat] enum to provide additional functionality.
@@ -84,6 +86,8 @@ extension ThreatX on Threat {
         return Threat.privilegedAccess;
       case 'secureHardwareNotAvailable':
         return Threat.secureHardwareNotAvailable;
+      case 'checksCompleted':
+        return Threat.checksCompleted;
       default:
         throw TalsecException(
           message: 'Cannot resolve this data as threat: $name',
