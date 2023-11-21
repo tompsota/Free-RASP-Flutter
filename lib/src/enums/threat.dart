@@ -47,6 +47,8 @@ enum Threat {
   /// hardware based cryptography.
   secureHardwareNotAvailable,
 
+  biometrics,
+
   checksCompleted
 }
 
