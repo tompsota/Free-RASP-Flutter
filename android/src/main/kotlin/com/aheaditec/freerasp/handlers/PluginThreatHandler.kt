@@ -18,6 +18,10 @@ internal object PluginThreatHandler : ThreatDetected, DeviceState, CompletionNot
     internal var listener: TalsecFlutter? = null
     private val internalListener = ThreatListener(this, this, this)
 
+    internal fun getBiometricsState(context: Context): ThreatListener.BiometricState {
+        return internalListener.getBiometricState(context);
+    }
+
     internal fun registerListener(context: Context) {
         internalListener.registerListener(context)
     }

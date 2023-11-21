@@ -59,7 +59,16 @@ internal class MethodCallHandler : MethodCallHandler {
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
             "start" -> start(call, result)
+            "getBiometricsState" -> getBiometricsState(result)
             else -> result.notImplemented()
+        }
+    }
+
+    private fun getBiometricsState(result: MethodChannel.Result) {
+        runResultCatching(result) {
+            context?.let {
+                result.success(TalsecThreatHandler.getBiometricsState(it).toString())
+            } ?: throw IllegalStateException("Unable to get biometrics state - context is null")
         }
     }
 

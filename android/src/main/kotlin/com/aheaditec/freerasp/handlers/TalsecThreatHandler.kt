@@ -4,6 +4,7 @@ import android.content.Context
 import com.aheaditec.freerasp.Threat
 import com.aheaditec.talsec_security.security.api.Talsec
 import com.aheaditec.talsec_security.security.api.TalsecConfig
+import com.aheaditec.talsec_security.security.api.ThreatListener.BiometricState
 import io.flutter.plugin.common.EventChannel
 
 /**
@@ -22,6 +23,10 @@ internal object TalsecThreatHandler {
     internal fun start(context : Context, config: TalsecConfig) {
         attachListener(context)
         Talsec.start(context, config)
+    }
+
+    internal fun getBiometricsState(context: Context): BiometricState {
+        return PluginThreatHandler.getBiometricsState(context)
     }
 
     /**
