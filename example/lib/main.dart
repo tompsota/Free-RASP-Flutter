@@ -34,6 +34,10 @@ void main() async {
   /// freeRASP should be always initialized in the top-level widget
   await Talsec.instance.start(config);
 
+
+  final state = await Talsec.instance.getBiometricsState();
+  print(state);
+
   /// Another way to handle [Threat] is to use Stream.
   /// ```dart
   /// final subscription = Talsec.instance.onThreatDetected.listen((threat) {

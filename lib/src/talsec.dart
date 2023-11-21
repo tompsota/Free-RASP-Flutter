@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:freerasp/freerasp.dart';
+import 'package:freerasp/src/enums/biometrics_state.dart';
 
 /// A class which maintains all security related operations.
 ///
@@ -95,6 +96,17 @@ class Talsec {
       'start',
       {'config': jsonEncode(config.toJson())},
     );
+  }
+
+  Future<BiometricsState> getBiometricsState() async {
+    final state = await methodChannel.invokeMethod<String>(
+      'getBiometricsState',
+    );
+
+    if (state == null) {
+      throw const TalsecException(message: "Biometrics state is invalid");
+    }
+    return BiometricsStateX.fromString(state);
   }
 
   void _checkConfig(TalsecConfig config) {
