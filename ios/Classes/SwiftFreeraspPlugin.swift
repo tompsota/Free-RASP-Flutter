@@ -30,19 +30,26 @@ public class SwiftFreeraspPlugin: NSObject, FlutterPlugin, FlutterStreamHandler 
     ///   - call: The `FlutterMethodCall` object representing the method call.
     ///   - result: The `FlutterResult` object to be returned to the caller.
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let args = call.arguments as? Dictionary<String, String>
-        else {
-            result(FlutterError(code: "talsec-failure", message: "Unexpected arguments", details: nil))
-            return
-        }
-        
+    
         switch call.method {
         case "start":
+            guard let args = call.arguments as? Dictionary<String, String>
+            else {
+                result(FlutterError(code: "talsec-failure", message: "Unexpected arguments", details: nil))
+                return
+            }
             start(args: args, result: result)
+            return
+        case "getBiometricsState":
+            getBiometricsState(result: result)
             return
         default:
             result(FlutterMethodNotImplemented)
         }
+    }
+    
+    private func getBiometricsState(result: @escaping FlutterResult) {
+        result(BiometryService.hasBiometry())
     }
     
     /// Runs Talsec with given configuration
