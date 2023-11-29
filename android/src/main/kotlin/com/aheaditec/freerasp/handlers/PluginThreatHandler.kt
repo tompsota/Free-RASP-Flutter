@@ -6,6 +6,7 @@ import com.aheaditec.talsec_security.security.api.ThreatListener
 import com.aheaditec.talsec_security.security.api.ThreatListener.CompletionNotifier
 import com.aheaditec.talsec_security.security.api.ThreatListener.DeviceState
 import com.aheaditec.talsec_security.security.api.ThreatListener.ThreatDetected
+import io.flutter.plugin.common.MethodChannel
 
 /**
  * A Singleton object that implements the [ThreatDetected] and [DeviceState] interfaces to handle
@@ -71,6 +72,9 @@ internal object PluginThreatHandler : ThreatDetected, DeviceState, CompletionNot
     }
 
     override fun onInitialChecksDone() {
+        MethodCallHandler.initialChecksDone = true
+        MethodCallHandler.onInitialChecksDoneResult?.success(true)
+        MethodCallHandler.onInitialChecksDoneResult = null
         notify(Threat.CHECKS_COMPLETED)
     }
 

@@ -109,6 +109,15 @@ class Talsec {
     return BiometricsStateX.fromString(state);
   }
 
+  Future<bool> awaitInitialChecksDone() async {
+    final done = await methodChannel.invokeMethod<bool>('awaitInitialChecksDone');
+
+    if (done == null) {
+      throw const TalsecException(message: "Biometrics state is invalid");
+    }
+    return done;
+  }
+
   void _checkConfig(TalsecConfig config) {
     // ignore: missing_enum_constant_in_switch
     switch (defaultTargetPlatform) {

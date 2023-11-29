@@ -34,7 +34,8 @@ void main() async {
   /// freeRASP should be always initialized in the top-level widget
   await Talsec.instance.start(config);
 
-
+  final done = await Talsec.instance.awaitInitialChecksDone();
+  print(done);
   final state = await Talsec.instance.getBiometricsState();
   print(state);
 

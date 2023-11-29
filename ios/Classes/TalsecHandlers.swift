@@ -8,6 +8,8 @@ extension SecurityThreatCenter: SecurityThreatHandler, SecurityThreatNotifier {
     }
     
     public func initialChecksDone() {
+        SwiftFreeraspPlugin.instance.initialchecksDone = true
+        SwiftFreeraspPlugin.instance.initialChecksDoneResult?(true)
         SwiftFreeraspPlugin.instance.submitEvent("checksCompleted")
     }
 }

@@ -17,7 +17,9 @@ internal class MethodCallHandler : MethodCallHandler {
     private var methodChannel: MethodChannel? = null
 
     companion object {
+        var initialChecksDone = false
         private const val CHANNEL_NAME: String = "talsec.app/freerasp/methods"
+        var onInitialChecksDoneResult: MethodChannel.Result? = null
     }
 
     /**
@@ -60,6 +62,7 @@ internal class MethodCallHandler : MethodCallHandler {
         when (call.method) {
             "start" -> start(call, result)
             "getBiometricsState" -> getBiometricsState(result)
+            "awaitInitialChecksDone" -> awaitInitialChecksDone(result)
             else -> result.notImplemented()
         }
     }
@@ -87,5 +90,13 @@ internal class MethodCallHandler : MethodCallHandler {
             } ?: throw IllegalStateException("Unable to run Talsec - context is null")
             result.success(null)
         }
+    }
+
+    fun awaitInitialChecksDone(result: MethodChannel.Result) {
+        if (initialChecksDone) {
+            result.success(true)
+            return
+        }
+        onInitialChecksDoneResult = result
     }
 }

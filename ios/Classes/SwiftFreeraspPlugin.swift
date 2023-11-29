@@ -10,6 +10,9 @@ public class SwiftFreeraspPlugin: NSObject, FlutterPlugin, FlutterStreamHandler 
     /// The singleton instance of `SwiftTalsecPlugin`.
     static let instance = SwiftFreeraspPlugin()
     
+    var initialchecksDone = false
+    var initialChecksDoneResult: FlutterResult? = nil
+    
     private override init() {}
     
     /// Registers this plugin with the given `FlutterPluginRegistrar`.
@@ -43,9 +46,20 @@ public class SwiftFreeraspPlugin: NSObject, FlutterPlugin, FlutterStreamHandler 
         case "getBiometricsState":
             getBiometricsState(result: result)
             return
+        case "awaitInitialChecksDone":
+            awaitInitialChecksDone(result: result)
+            
         default:
             result(FlutterMethodNotImplemented)
         }
+    }
+    
+    private func awaitInitialChecksDone(result: @escaping FlutterResult) {
+        if (initialchecksDone) {
+            result(true)
+            return
+        }
+        initialChecksDoneResult = result
     }
     
     private func getBiometricsState(result: @escaping FlutterResult) {
